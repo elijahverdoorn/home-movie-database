@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	img(src=movieInfo.poster)
+	h1=movieInfo.title
+		|  (#{movieInfo.year})
+	p=movieInfo.director
+	p=movieInfo.rating
+		|, #{movieInfo.runtime}
+	p Written by #{movieInfo.writer}
+	p Starring #{movieInfo.actors}
+	i=movieInfo.name
+		|  #{movieInfo.volume}
