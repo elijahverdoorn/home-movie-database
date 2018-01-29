@@ -1,4 +1,6 @@
-let express = require('express'); let router = express.Router(); let db = require('../db.js');
+let express = require('express');
+let router = express.Router();
+let db = require('../db.js');
 import app from '../app'
 import getMovieInfoByTitle from '../lib/getMovieInfoByTitle'
 
@@ -27,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
 		})
 		m.director = imdbInfo.director,
 		m.imdbId = imdbInfo.imdbId,
-		m.rating = imdbInfo.rating,
+		m.rating = imdbInfo.rated,
 		m.year = imdbInfo.year,
 		m.runtime = imdbInfo.runtime,
 		m.writer = imdbInfo.writer,
