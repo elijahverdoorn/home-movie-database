@@ -10,7 +10,7 @@ let Promise = require('bluebird');
 let index = require('./routes/index');
 let movie = require('./routes/movie');
 let search = require('./routes/search');
-let edit = require('./routes/edit');
+let series = require('./routes/series');
 
 let app = express();
 
@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/movie', movie);
 app.use('/search', search);
-app.use('/edit', edit);
+app.use('/series', series);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
