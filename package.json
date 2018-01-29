@@ -1,0 +1,11 @@
+{
+  "name": "home-movie-database",
+  "version": "1.0.0",
+  "description": "Provides information about movies owned by my family",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elijah Verdoorn",
+  "license": "MIT"
+}
