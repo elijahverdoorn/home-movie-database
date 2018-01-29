@@ -5,9 +5,12 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let db = require('sqlite');
+let Promise = require('bluebird');
 
 let index = require('./routes/index');
-let users = require('./routes/users');
+let movie = require('./routes/movie');
+let search = require('./routes/search');
+let edit = require('./routes/edit');
 
 let app = express();
 
@@ -47,3 +50,16 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+// properly close db connection
+process.on('exit', () => {
+	db.close()
+	console.log('closed db connection')
+})
+
+// make connection to SQLite3 and start server
+Promise.resolve().then(() => db.open('./db/database.db', {Promise}))
+	.catch(err => console.error(err.stack))
+	.finally(() => app.listen(3000))
+
