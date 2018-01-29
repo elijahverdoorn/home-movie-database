@@ -1,11 +1,10 @@
-let express = require('express');
-let path = require('path');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
-let db = require('sqlite');
-let Promise = require('bluebird');
+import express from 'express'
+import path from 'path'
+import favicon from 'serve-favicon'
+import logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import * as db from 'sqlite'
+import * as Promise from 'bluebird'
 
 let index = require('./routes/index');
 let movie = require('./routes/movie');
@@ -25,6 +24,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+	req.db = db
+	next(req)
+})
 
 app.use('/', index);
 app.use('/movie', movie);
