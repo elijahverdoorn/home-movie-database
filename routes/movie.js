@@ -1,6 +1,4 @@
-let express = require('express');
-let router = express.Router();
-let db = require('../db.js');
+let express = require('express'); let router = express.Router(); let db = require('../db.js');
 import app from '../app'
 import getMovieInfoByTitle from '../lib/getMovieInfoByTitle'
 

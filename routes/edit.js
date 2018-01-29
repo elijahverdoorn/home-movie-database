@@ -13,8 +13,9 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/:id', (req, res, next) => {
-		db.run('UPDATE movie SET director = $director, imdbId = $imdbId, rating = $rating, year = $year, runtime = $runtime, writer = $writer, actors = $actors, plot = $plot, imdbURL = $imdbURL, poster = $poster, hasInfo = 1 WHERE id = $id;', {
+		db.run('UPDATE movie SET title = $title, director = $director, imdbId = $imdbId, rating = $rating, year = $year, runtime = $runtime, writer = $writer, actors = $actors, plot = $plot, imdbURL = $imdbURL, poster = $poster, hasInfo = 1 WHERE id = $id;', {
 			$id: req.params.id,
+			$title: req.body.title,
 			$director: req.body.director,
 			$imdbId: req.body.imdbId,
 			$rating: req.body.rating,
