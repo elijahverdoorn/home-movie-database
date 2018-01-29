@@ -10,6 +10,7 @@ let index = require('./routes/index');
 let movie = require('./routes/movie');
 let search = require('./routes/search');
 let series = require('./routes/series');
+let edit = require('./routes/edit');
 
 let app = express();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/edit', edit);
 app.use('/movie', movie);
 app.use('/search', search);
 app.use('/series', series);

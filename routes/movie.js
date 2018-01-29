@@ -5,8 +5,6 @@ import app from '../app'
 import getMovieInfoByTitle from '../lib/getMovieInfoByTitle'
 
 router.get('/:id', async (req, res, next) => {
-	// console.log(db)
-
 	let m = await db.get('SELECT * FROM movie m JOIN location l WHERE m.id = $id;', {
 		$id: req.params.id
 	})
@@ -19,14 +17,14 @@ router.get('/:id', async (req, res, next) => {
 		db.run('UPDATE movie SET director = $director, imdbId = $imdbId, rating = $rating, year = $year, runtime = $runtime, writer = $writer, actors = $actors, plot = $plot, imdbURL = $imdbURL, poster = $poster, hasInfo = 1 WHERE id = $id;', {
 			$id: m.id,
 			$director: imdbInfo.director,
-			$imdbId: imdbInfo.imdbId,
+			$imdbId: imdbInfo.imdbid,
 			$rating: imdbInfo.rated,
 			$year: imdbInfo.year,
 			$runtime: imdbInfo.runtime,
 			$writer: imdbInfo.writer,
 			$actors: imdbInfo.actors,
 			$plot: imdbInfo.plot,
-			$imdbURL: imdbInfo.imdbURL,
+			$imdbURL: imdbInfo.imdburl,
 			$poster: imdbInfo.poster
 		})
 		m.director = imdbInfo.director,

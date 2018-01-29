@@ -1,0 +1,44 @@
+extends layout
+
+block content
+	form#info(method='POST' action'/edit/' + movieInfo.id)
+		label(for='title') Title: 
+		input#title.form-control(type='text', name='title', value=movieInfo.title)
+		br
+		label(for='year') Year: 
+		input#year.form-control(type='text', name='year', value=movieInfo.year)
+		br
+		label(for='director') Director: 
+		input#director.form-control(type='text', name='director', value=movieInfo.director)
+		br
+		label(for='rating') Rating: 
+		input#rating.form-control(type='text', name='rating', value=movieInfo.rating)
+		br
+		label(for='runtime') Runtime: 
+		input#runtime.form-control(type='text', name='runtime', value=movieInfo.runtime)
+		br
+		label(for='writer') Writer: 
+		input#writer.form-control(type='text', name='writer', value=movieInfo.writer)
+		br
+		label(for='actors') Actors: 
+		input#actors.form-control(type='text', name='actors', value=movieInfo.actors)
+		br
+		label(for='locationName') Binder Genre: 
+		input#locationName.form-control(type='text', name='locationName', value=movieInfo.name)
+		br
+		label(for='locationVolume') Binder Volume: 
+		input#locationVolume.form-control(type='text', name='locationVolume', value=movieInfo.volume)
+		br
+		label(for='imdbId') IMDB ID: 
+		input#imdbId.form-control(type='text', name='imdbId', value=movieInfo.imdbId)
+		br
+		label(for='imdbURL') IMDB URL: 
+		input#imdbURL.form-control(type='text', name='imdbURL', value=movieInfo.imdbURL)
+		br
+		label(for='poster') Poster URL: 
+		input#poster.form-control(type='text', name='poster', value=movieInfo.poster)
+		br
+		label(for='plot') Plot: 
+		input#plot.form-control(type='textarea', name='plot', value=movieInfo.plot)
+		br
+		button(type='submit') Save
