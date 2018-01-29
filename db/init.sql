@@ -26,5 +26,5 @@ CREATE TABLE location (
 
 CREATE TABLE series (
 	id INTEGER PRIMARY KEY ASC,
-	title VARCHAR NOT NULL,
+	title VARCHAR NOT NULL
 );

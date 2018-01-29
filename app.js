@@ -3,8 +3,8 @@ import path from 'path'
 import favicon from 'serve-favicon'
 import logger from 'morgan'
 import cookieParser from 'cookie-parser'
-import * as db from 'sqlite'
-import * as Promise from 'bluebird'
+import bodyParser from 'body-parser'
+import Promise from 'bluebird'
 
 let index = require('./routes/index');
 let movie = require('./routes/movie');
@@ -24,11 +24,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use((req, res, next) => {
-	req.db = db
-	next(req)
-})
 
 app.use('/', index);
 app.use('/movie', movie);
@@ -53,17 +48,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
-
-
 // properly close db connection
-process.on('exit', () => {
-	db.close()
-	console.log('closed db connection')
-})
+// process.on('exit', () => {
+	// db.close()
+	// console.log('closed db connection')
+// })
 
-// make connection to SQLite3 and start server
-Promise.resolve().then(() => db.open('./db/database.db', {Promise}))
-	.catch(err => console.error(err.stack))
-	.finally(() => app.listen(3000))
+app.listen(3000)
 
+module.exports = app

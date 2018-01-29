@@ -1,24 +1,33 @@
 let express = require('express');
 let router = express.Router();
-let getMovieInfoByTitle = require('../lib/getMovieInfoByTitle');
+let db = require('../db.js');
+import app from '../app'
+import getMovieInfoByTitle from '../lib/getMovieInfoByTitle'
 
 router.get('/:id', async (req, res, next) => {
-	let m = await req.db.all('SELECT * FROM movie WHERE id = ? JOIN location ON locationId;', req.query.id)
+	// console.log(db)
+
+	let m = await db.get('SELECT * FROM movie m JOIN location l WHERE m.id = $id;', {
+		$id: req.params.id
+	})
+	console.log(m)
+
 	if (!m.hasInfo) {
-		let imdbInfo = getMovieInfoByTitle(m.title)
+		let imdbInfo = await getMovieInfoByTitle(m.title)
+		console.log(imdbInfo)
 		// save the info in db
-		req.db.run('UPDATE movie SET director = $director, imdbId = $imdbId, rating = $rating, year = $year, runtime = $runtime, writer = $writer, actors = $actors, plot = $plot, imdbURL = $imdbURL, poster = $poster;', {
+		db.run('UPDATE movie SET director = $director, imdbId = $imdbId, rating = $rating, year = $year, runtime = $runtime, writer = $writer, actors = $actors, plot = $plot, imdbURL = $imdbURL, poster = $poster, hasInfo = 1 WHERE id = $id;', {
+			$id: m.id,
 			$director: imdbInfo.director,
 			$imdbId: imdbInfo.imdbId,
-			$rating: imdbInfo.rating,
+			$rating: imdbInfo.rated,
 			$year: imdbInfo.year,
 			$runtime: imdbInfo.runtime,
 			$writer: imdbInfo.writer,
 			$actors: imdbInfo.actors,
 			$plot: imdbInfo.plot,
 			$imdbURL: imdbInfo.imdbURL,
-			$poster: imdbInfo.poster,
-			$hasInfo: 1
+			$poster: imdbInfo.poster
 		})
 		m.director = imdbInfo.director,
 		m.imdbId = imdbInfo.imdbId,
@@ -33,9 +42,9 @@ router.get('/:id', async (req, res, next) => {
 		m.hasInfo = 1
 	}
 
-  res.render('movie', {
+	res.render('movie', {
 		movieInfo: m
 	});
-});
+})
 
 module.exports = router;
