@@ -1,4 +1,6 @@
 extends layout
 
 block content
-  p Welcome to TEST
+	each movie in movies
+		a(href='/movie/' + movie.id) #{movie.title}
+		br
