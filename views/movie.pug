@@ -12,3 +12,7 @@ block content
 	i=movieInfo.name
 		|  #{movieInfo.volume}
 	p=movieInfo.plot
+	a(href=movieInfo.imdbURL) See more info on IMDB
+	br
+	br
+	a(href='/edit/' + movieInfo.id) Edit

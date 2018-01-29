@@ -1,6 +1,9 @@
 extends layout
 
 block content
+	a(href='/movie/' + movieInfo.id) <--- Cancel
+	br
+	br
 	form#info(method='POST' action'/edit/' + movieInfo.id)
 		label(for='title') Title: 
 		input#title.form-control(type='text', name='title', value=movieInfo.title)
