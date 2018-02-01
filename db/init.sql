@@ -14,22 +14,27 @@ CREATE TABLE movie (
 	poster VARCHAR,
 	hasInfo INTEGER,
 	locationId INTEGER,
-	formatId INTEGER,
 	specialFeatures INTEGER,
 	notes VARCHAR,
-	FOREIGN KEY(seriesId) REFERENCES series(id)
+	FOREIGN KEY(seriesId) REFERENCES series(id),
 	FOREIGN KEY(locationId) REFERENCES location(id)
+);
+
+CREATE TABLE formatEntry (
+	movieId INTEGER,
+	formatId INTEGER,
+	FOREIGN KEY(movieId) REFERENCES movie(id),
 	FOREIGN KEY(formatId) REFERENCES format(id)
 );
 
 CREATE TABLE format (
 	id INTEGER PRIMARY KEY ASC,
-	name VARCHAR NOT NULL
+	formatName VARCHAR NOT NULL
 );
 
 CREATE TABLE location (
 	id INTEGER PRIMARY KEY ASC,
-	name VARCHAR NOT NULL,
+	locationName VARCHAR NOT NULL,
 	volume INTEGER
 );
 

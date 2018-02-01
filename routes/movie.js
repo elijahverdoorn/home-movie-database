@@ -5,11 +5,17 @@ import app from '../app'
 import getMovieInfoByTitle from '../lib/getMovieInfoByTitle'
 
 router.get('/:id', async (req, res, next) => {
+	// TODO: These two calls can be combined with promise.all
 	let m = await db.get('SELECT * FROM movie m JOIN location l WHERE m.id = $id;', {
 		$id: req.params.id
 	})
 	console.log(m)
 
+	let formatList = await db.all('SELECT * FROM formatEntry fe JOIN format f ON fe.formatId = f.id WHERE fe.movieId = $mid;', {
+		$mid: req.params.id
+	})
+
+	/*
 	if (!m.hasInfo) {
 		let imdbInfo = await getMovieInfoByTitle(m.title)
 		console.log(imdbInfo)
@@ -39,7 +45,18 @@ router.get('/:id', async (req, res, next) => {
 		m.poster = imdbInfo.poster,
 		m.hasInfo = 1
 	}
+*/
 
+	m.formatList = ''
+	formatList.forEach((format) => {
+		if (m.formatList === '') {
+			m.formatList = format.formatName
+		} else {
+			m.formatList = `${m.formatList}, ${format.formatName}`
+		}
+	})
+
+	console.log(m.formatList)
 	res.render('movie', {
 		movieInfo: m
 	});
