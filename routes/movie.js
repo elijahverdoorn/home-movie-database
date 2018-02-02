@@ -15,7 +15,6 @@ router.get('/:id', async (req, res, next) => {
 		$mid: req.params.id
 	})
 
-	/*
 	if (!m.hasInfo) {
 		let imdbInfo = await getMovieInfoByTitle(m.title)
 		console.log(imdbInfo)
@@ -45,7 +44,6 @@ router.get('/:id', async (req, res, next) => {
 		m.poster = imdbInfo.poster,
 		m.hasInfo = 1
 	}
-*/
 
 	m.formatList = ''
 	formatList.forEach((format) => {
