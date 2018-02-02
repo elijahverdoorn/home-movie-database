@@ -6,9 +6,27 @@ router.get('/:id', async (req, res, next) => {
 	let m = await db.get('SELECT * FROM movie m JOIN location l WHERE m.id = $id;', {
 		$id: req.params.id
 	})
+	let fe = await db.all('SELECT * from formatEntry WHERE movieId = $id;', {
+		$id: req.params.id
+	})
+	let formats = []
+	fe.forEach((entry) => {
+		formats.push(entry.formatId)
+	})
+
+	let f = await db.all('SELECT * FROM format;')
+
+	f.forEach((format) => {
+		if (formats.includes(format.id)) {
+			format.active = true
+		} else {
+			format.active = false
+		}
+	})
 
 	res.render('edit', {
-		movieInfo: m
+		movieInfo: m,
+		formats: f
 	})
 })
 
