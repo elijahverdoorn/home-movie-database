@@ -1,0 +1,10 @@
+extends ../node_modules/pug-bootstrap/_bootstrap
+append styles
+	// styles for this template
+	link(href='../node_modules/pug-bootstrap/css/starter-template.css', rel='stylesheet')
+	link(href='/stylesheets/style.css', rel='stylesheet')
+block body
+	+navbar-fixed("Movie Database","navbar")
+		+nav_item("/","active") Home
+		+nav_item("/new") Add Movie
+	block content

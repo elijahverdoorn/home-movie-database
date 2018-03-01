@@ -57,7 +57,14 @@ router.get('/:id', async (req, res, next) => {
 	console.log(m.formatList)
 	res.render('movie', {
 		movieInfo: m
-	});
+	})
 })
 
+router.delete('/:id', async (req, res) => {
+	db.run('DELETE FROM movie where id = $id', {
+		$id: id
+	})
+
+	res.redirect('/')
+})
 module.exports = router;

@@ -1,6 +1,6 @@
-extends layout
+extends bootstrap_base
 
-block content
+append body
 	img(src=movieInfo.poster)
 	h1=movieInfo.title
 		|  (#{movieInfo.year})
